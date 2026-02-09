@@ -1,0 +1,71 @@
+PPO algorithm implementation for the MiniGrid DoorKey environment using Stable-Baselines3
+Project Overview
+This project implements the PPO algorithm using Stable-Baselines3 to train an agent in the MiniGrid DoorKey-5x5 environment. The agent learns to complete the "find key → open door" task. The project includes complete training and testing pipelines.
+Requirements
+System Requirements
+Python 3.8+
+Windows/Linux/macOS
+Python Dependencies
+pip install gymnasium
+pip install minigrid
+pip install stable-baselines3
+pip install torch
+pip install numpy
+Project Structure
+RL2/
+├── models/                 # Model storage directory
+├── train.py               # Training script
+├── test_agent.py          # Testing script
+└── README.md             # Project documentation
+File Description
+train.py
+Purpose: Train PPO model
+Features:
+Custom CNN architecture optimized for MiniGrid environment
+Image observation preprocessing (5×5×3 RGB images)
+Automatic model directory creation
+Training progress bar display
+test_agent.py
+Purpose: Test trained model
+Features:
+Visual environment rendering
+Manual "pick up key" and "open door" logic
+Real-time action and reward display
+Environment reset and loop testing
+Usage
+1. Train the Model
+python train.py
+Trains for 500,000 steps by default. Model saved to models/ppo_minigrid.zip
+2. Test the Model
+python test_agent.py
+Run test after ensuring model file exists. Observe agent behavior.
+Technical Details
+Environment Wrappers
+FullyObsWrapper: Provides full observability
+ExtractImageObservation: Extracts and preprocesses image observations (HWC→CHW format)
+Network Architecture
+Custom MiniGridCNN:
+- Input: (3, 5, 5) RGB images
+- 2 convolutional layers + ReLU activation
+- Fully connected layer outputs 64-dimensional features
+Training Parameters
+Algorithm: PPO (Proximal Policy Optimization)
+Policy: CnnPolicy with custom feature extractor
+Total timesteps: 500,000 (default)
+Features dimension: 64
+Key Features
+Training
+Custom CNN architecture optimized for small grid observations
+Proper image channel handling (RGB only)
+Automatic feature dimension calculation
+Vectorized environment support
+Testing
+Human-readable rendering
+Manual key pickup and door opening logic
+Step-by-step action visualization
+Automatic environment reset upon completion
+Notes
+Ensure the model path (BASE_DIR) matches your local directory structure
+The environment uses a 5×5 grid with limited steps (max_steps=100)
+Image observations are processed to (3, 5, 5) shape for CNN compatibility
+Manual action logic in testing ensures reliable key pickup and door opening
